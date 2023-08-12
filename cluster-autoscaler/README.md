@@ -46,7 +46,7 @@ eksctl utils associate-iam-oidc-provider \
 Create an IAM role for the cluster-autoscaler Service Account in the kube-system namespace.
 
 ```sh
-export AWS_ACCOUNT_ID=""
+export AWS_ACCOUNT_ID="<Enter your AWS Account ID>"
 eksctl create iamserviceaccount \
     --name cluster-autoscaler \
     --namespace kube-system \
