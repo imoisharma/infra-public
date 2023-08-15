@@ -5,13 +5,13 @@ In this open and collaborative space, we believe in the power of sharing knowled
 
 ## What You'll Find Here:
 
-IAC Templates: Explore a wide range of infrastructure templates for popular tools like Terraform, Ansible, CloudFormation, and more. Whether you're provisioning cloud resources, managing containers, or configuring network components, our templates have got you covered.
+**IAC Templates:** Explore a wide range of infrastructure templates for popular tools like Terraform, Ansible, CloudFormation, and more. Whether you're provisioning cloud resources, managing containers, or configuring network components, our templates have got you covered.
 
-Best Practices: Discover industry best practices and coding guidelines for writing efficient and maintainable IAC code. Learn how to structure your projects, manage variables, handle secrets, and ensure security across your infrastructure.
+**Best Practices:** Discover industry best practices and coding guidelines for writing efficient and maintainable IAC code. Learn how to structure your projects, manage variables, handle secrets, and ensure security across your infrastructure.
 
-Use Case Examples: Dive into real-world use cases and examples that showcase how IAC can be applied to different scenarios. From setting up scalable web applications to orchestrating complex multi-cloud environments, we provide practical insights to guide you.
+**Use Case Examples:** Dive into real-world use cases and examples that showcase how IAC can be applied to different scenarios. From setting up scalable web applications to orchestrating complex multi-cloud environments, we provide practical insights to guide you.
 
-Collaboration Opportunities: Contribute your own IAC code, share your insights, and collaborate with fellow engineers from around the world. We believe in the power of community-driven development and welcome your expertise to enhance the repository.
+**Collaboration Opportunities:** Contribute your own IAC code, share your insights and collaborate with fellow engineers from around the world. We believe in the power of community-driven development and welcome your expertise to enhance the repository.
 
-Guides and Tutorials: Access step-by-step guides and tutorials that walk you through various aspects of IAC implementation. Whether you're looking to automate deployments, manage infrastructure changes, or optimize performance, our guides will help you succeed.
+**Guides and Tutorials:** Access step-by-step guides and tutorials that walk you through various aspects of IAC implementation. Whether you're looking to automate deployments, manage infrastructure changes, or optimize performance, our guides will help you succeed.
 
