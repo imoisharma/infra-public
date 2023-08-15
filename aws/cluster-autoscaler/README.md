@@ -6,12 +6,34 @@ Cluster Autoscaler requires the ability to examine and modify EC2 Auto Scaling G
 
  IAM roles for service accounts provide the ability to manage credentials for your applications, similar to the way that Amazon EC2 instance profiles provide credentials to Amazon EC2 instances. Instead of creating and distributing your AWS credentials to the containers or using the Amazon EC2 instance's role, you associate an IAM role with a Kubernetes service account and configure your Pods to use the service account.
 
-- Enabling IAM roles for service accounts on your cluster
-```sh 
-eksctl utils associate-iam-oidc-provider \
-    --cluster eksworkshop-eksctl \
-    --approve
- ```   
+
+## Creating an IAM OIDC provider for your cluster
+Determine whether you have an existing IAM OIDC provider for your cluster. Retrieve your cluster's OIDC provider ID and store it in a variable. Replace `my-cluster` with your own value.
+
+**To create an IAM OIDC identity provider for your cluster with eksctl**
+
+1. Determine whether you have an existing IAM OIDC provider for your cluster. Retrieve your cluster's OIDC provider ID and store it in a variable. Replace `my-cluster` with your own value.
+
+```sh
+export cluster_name=my-cluster
+oidc_id=$(aws eks describe-cluster --name $cluster_name --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5)
+```
+
+2. Determine whether an IAM OIDC provider with your cluster's ID is already in your account.
+
+```sh
+aws iam list-open-id-connect-providers | grep $oidc_id | cut -d "/" -f4
+```
+
+If output is returned, then you already have an IAM OIDC provider for your cluster and you can skip the next step. If no output is returned, then you must create an IAM OIDC provider for your cluster.
+
+3. Create an IAM OIDC identity provider for your cluster with the following command.
+
+```sh
+eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
+```
+
+## IAM Policy 
 
  Creating an IAM policy for your service account that will allow your CA pod to interact with the autoscaling groups.
 
