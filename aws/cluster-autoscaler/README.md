@@ -88,6 +88,6 @@ kubectl -n kube-system describe sa cluster-autoscaler
 Deploy the Cluster Autoscaler to your cluster with the following command:
 
 ```sh
-kubectl apply -f cluster-autoscaler/cluster-autoscaler-auto-discovery.yaml
+kubectl apply -f ./cluster-autoscaler-auto-discovery.yaml
 ```
 
