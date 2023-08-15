@@ -33,7 +33,7 @@ If output is returned, then you already have an IAM OIDC provider for your clust
 eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
 ```
 
-## IAM Policy 
+## Create IAM Policy 
 
  Creating an IAM policy for your service account that will allow your CA pod to interact with the autoscaling groups.
 
@@ -64,7 +64,7 @@ eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
     --policy-document file://~/Development/sharmio/eks-youtube-demo/environment/cluster-autoscaler/ca-iam-policy.json
   ```
 
-## IAM Role
+## Create IAM Role
 Create an IAM role for the cluster-autoscaler Service Account in the kube-system namespace.
 
 ```sh
