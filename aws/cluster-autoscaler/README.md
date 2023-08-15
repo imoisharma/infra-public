@@ -1,5 +1,9 @@
 ## Cluster Autoscaler on AWS EKS
-On AWS, Cluster Autoscaler utilizes Amazon EC2 Auto Scaling Groups to manage node groups. Cluster Autoscaler typically runs as a Deployment in your cluster.
+The Kubernetes Cluster Autoscaler automatically adjusts the number of nodes in your cluster when pods fail or are rescheduled onto other nodes. On AWS, Cluster Autoscaler utilizes Amazon EC2 Auto Scaling Groups to manage node groups. Cluster Autoscaler typically runs as a Deployment in your cluster.
+
+![Architecture](./architecture.png)
+
+*Source- https://aws.github.io/aws-eks-best-practices/cluster-autoscaling/*
 
 ## Permissions
 Cluster Autoscaler requires the ability to examine and modify EC2 Auto Scaling Groups. It is recommended to use [IAM roles for service accounts](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html).
