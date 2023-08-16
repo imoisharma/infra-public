@@ -65,7 +65,7 @@ eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
  ```sh
   aws iam create-policy   \
     --policy-name k8s-cluster-autoscaler-asg-policy \
-    --policy-document file://~/Development/sharmio/eks-youtube-demo/environment/cluster-autoscaler/ca-iam-policy.json
+    --policy-document file://~/Development/sharmio/infra-public/aws/cluster-autoscaler/ca-iam-policy.json
   ```
 
 ## Create IAM Role
@@ -76,8 +76,8 @@ export AWS_ACCOUNT_ID="<Enter your AWS Account ID>"
 eksctl create iamserviceaccount \
     --name cluster-autoscaler \
     --namespace kube-system \
-    --cluster eksworkshop-eksctl \
-    --attach-policy-arn "arn:aws:iam::${AWS_ACCOUNT_ID}:policy/k8s-asg-policy" \
+    --cluster <your-cluster-name> \
+    --attach-policy-arn "arn:aws:iam::${AWS_ACCOUNT_ID}:policy/k8s-cluster-autoscaler-asg-policy" \
     --approve \
     --override-existing-serviceaccounts
 ```
