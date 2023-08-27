@@ -5,7 +5,7 @@ In this open and collaborative space, we believe in the power of sharing knowled
 
 **Table of Contents**
   * [What You Will Find Here](#what-you-will-find-here)
-  * [Cluster Autoscaler](#cluster-autoscaler)
+  * [Cluster Autoscaler](https://github.com/Sharmio/infra-public/tree/main/aws/cluster-autoscaler)
 
     
 ## What You Will Find Here
@@ -20,8 +20,4 @@ In this open and collaborative space, we believe in the power of sharing knowled
 
 **Guides and Tutorials:** Access step-by-step guides and tutorials that walk you through various aspects of IAC implementation. Whether you're looking to automate deployments, manage infrastructure changes, or optimize performance, our guides will help you succeed.
 
-## Cluster Autoscaler
-The Kubernetes Cluster Autoscaler automatically adjusts the number of nodes in your cluster when pods fail or are rescheduled onto other nodes. On AWS, Cluster Autoscaler utilizes Amazon EC2 Auto Scaling Groups to manage node groups. Cluster Autoscaler typically runs as a Deployment in your cluster.
-
-Read More [here](https://github.com/Sharmio/infra-public/tree/main/aws/cluster-autoscaler)
 
