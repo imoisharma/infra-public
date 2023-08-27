@@ -4,10 +4,10 @@ Welcome to the Infra-Public repository, your go-to destination for all things In
 In this open and collaborative space, we believe in the power of sharing knowledge and expertise. Whether you're a seasoned infrastructure engineer or just stepping into the world of IAC, you'll find a wealth of resources designed to make your journey smoother and more efficient.
 
 - [Infra Public](#infra-public)
-  * [What You'll Find Here:](#what-you-ll-find-here-)
+  * [What You'll Find Here](#what-you-ll-find-here)
   * [cluster-autoscaler](#cluster-autoscaler)
     
-## What You'll Find Here:
+## What You'll Find Here
 
 **IAC Templates:** Explore a wide range of infrastructure templates for popular tools like Terraform, Ansible, CloudFormation, and more. Whether you're provisioning cloud resources, managing containers, or configuring network components, our templates have got you covered.
 
