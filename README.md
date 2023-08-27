@@ -5,7 +5,7 @@ In this open and collaborative space, we believe in the power of sharing knowled
 
 - [Infra Public](#infra-public)
   * [What You Will Find Here](#what-you-will-find-here)
-  * [cluster-autoscaler](#cluster-autoscaler)
+  * [Cluster Autoscaler](#cluster-autoscaler)
     
 ## What You Will Find Here
 
