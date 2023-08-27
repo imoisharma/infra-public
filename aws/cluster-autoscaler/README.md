@@ -5,6 +5,14 @@ The Kubernetes Cluster Autoscaler automatically adjusts the number of nodes in y
 
 *Source- https://aws.github.io/aws-eks-best-practices/cluster-autoscaling/*
 
+**Table of Contents**
+- [Cluster Autoscaler on AWS EKS](#cluster-autoscaler-on-aws-eks)
+- [Permissions](#permissions)
+- [Creating an IAM OIDC provider for your cluster](#creating-an-iam-oidc-provider-for-your-cluster)
+- [Create IAM Policy](#create-iam-policy)
+- [Create IAM Role](#create-iam-role)
+- [Deploy Cluster Autoscaler](#deploy-cluster-autoscaler)
+
 ## Permissions
 Cluster Autoscaler requires the ability to examine and modify EC2 Auto Scaling Groups. It is recommended to use [IAM roles for service accounts](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html).
 
