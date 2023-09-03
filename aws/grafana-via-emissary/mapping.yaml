@@ -20,4 +20,4 @@ metadata:
 spec:
   prefix: /
   service: grafana-stack
-  ambassador_id: "emissary"
+  ambassador_id: ["emissary"]
