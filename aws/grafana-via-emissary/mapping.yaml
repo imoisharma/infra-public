@@ -18,6 +18,7 @@ metadata:
     meta.helm.sh/release-name: grafana-mapping
     meta.helm.sh/release-namespace: monitoring
 spec:
-  prefix: /
+  prefix: /grafana
   service: grafana-stack
   ambassador_id: ["emissary"]
+  hostname: monitoring.uat.sharmio.com
