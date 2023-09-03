@@ -1,0 +1,10 @@
+apiVersion: getambassador.io/v3alpha1
+kind: Host
+metadata:
+  name: grafana.uat.sharmio.com
+  
+spec:
+  hostname: monitoring.sharmio.com
+  mappingSelector:
+    matchLabels:
+      examplehost: host
