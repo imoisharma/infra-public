@@ -1,27 +1,23 @@
 apiVersion: getambassador.io/v3alpha1
-kind: Host
+kind: Mapping
 metadata:
-  name: grafana-host
+  name: grafana-mapping
   namespace: monitoring
   labels:
+    host: grafana-host # This matches the Host's mappingSelector.
     app.kubernetes.io/component: emissary-ingress
     app.kubernetes.io/managed-by: sharmio
-    app.kubernetes.io/name: grafana-host
+    app.kubernetes.io/name: grafana-mapping
   annotations:
     a8r.io/bugs: https://github.com/Sharmio/infra-public/issues
     a8r.io/dependencies: emissary-ingress
-    a8r.io/description: This custom Host resource defines how Emissary-ingress will be visible to the outside world.
+    a8r.io/description: This mapping will defines how incoming HTTP requests should be routed to the appropriate backend services i.e. grafana service within a Kubernetes cluster.
     a8r.io/documentation: https://github.com/Sharmio/infra-public/tree/main/aws/grafana-via-emissary
     a8r.io/owner: Sharmio
     a8r.io/repository: https://github.com/Sharmio/infra-public/
-    meta.helm.sh/release-name: grafana-host
+    meta.helm.sh/release-name: grafana-mapping
     meta.helm.sh/release-namespace: monitoring
 spec:
-  hostname: monitoring.uat.sharmio.com
-  mappingSelector:
-    matchLabels:
-      host: grafana-host
-  requestPolicy:
-    insecure:
-      action: Redirect
-  ambassador_id: ["emissary"]
+  prefix: /
+  service: grafana-stack
+  ambassador_id: "emissary"
