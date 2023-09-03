@@ -21,7 +21,7 @@ spec:
   mappingSelector:
     matchLabels:
       host: grafana-host
-  requestPolicy:
-    insecure:
-      action: Redirect
+  # requestPolicy:
+  #   insecure:
+  #     action: Redirect
   ambassador_id: ["emissary"]
