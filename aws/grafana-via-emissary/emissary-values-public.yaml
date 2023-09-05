@@ -84,7 +84,7 @@ namespace:
 # labels Ambassador with an ID to allow for configuring multiple Ambassadors in a cluster
 # AMBASSADOR_ID: default
 env:
-  AMBASSADOR_ID: emissary
+  AMBASSADOR_ID: ["emissary"]
 
 # Additional container environment variable in raw YAML format
 # Example:
