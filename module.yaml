@@ -1,0 +1,9 @@
+apiVersion: getambassador.io/v3alpha1
+kind: Module
+metadata:
+  name: ambassador
+  namespace: ambassador
+spec:
+  config:
+    use_proxy_proto: true
+

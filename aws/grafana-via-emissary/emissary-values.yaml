@@ -84,7 +84,7 @@ namespace:
 # labels Ambassador with an ID to allow for configuring multiple Ambassadors in a cluster
 # AMBASSADOR_ID: default
 env:
-  AMBASSADOR_ID: "emissary"
+  AMBASSADOR_ID: emissary
 
 # Additional container environment variable in raw YAML format
 # Example:
@@ -126,28 +126,28 @@ security:
   # the "master" Release and then leave it unset in all others. Set the `rbac.podSecurityPolicies`
   # in all non-"master" Releases.
   podSecurityPolicy: {}
-    # # Add AppArmor and Seccomp annotations
-    # # https://kubernetes.io/docs/concepts/policy/pod-security-policy/#apparmor
-    # annotations:
-    # spec:
-    #   seLinux:
-    #     rule: RunAsAny
-    #   supplementalGroups:
-    #     rule: 'MustRunAs'
-    #     ranges:
-    #       # Forbid adding the root group.
-    #       - min: 1
-    #         max: 65535
-    #   fsGroup:
-    #     rule: 'MustRunAs'
-    #     ranges:
-    #       # Forbid adding the root group.
-    #       - min: 1
-    #         max: 65535
-    #   privileged: false
-    #   allowPrivilegeEscalation: false
-    #   runAsUser:
-    #     rule: MustRunAsNonRoot
+  # # Add AppArmor and Seccomp annotations
+  # # https://kubernetes.io/docs/concepts/policy/pod-security-policy/#apparmor
+  # annotations:
+  # spec:
+  #   seLinux:
+  #     rule: RunAsAny
+  #   supplementalGroups:
+  #     rule: 'MustRunAs'
+  #     ranges:
+  #       # Forbid adding the root group.
+  #       - min: 1
+  #         max: 65535
+  #   fsGroup:
+  #     rule: 'MustRunAs'
+  #     ranges:
+  #       # Forbid adding the root group.
+  #       - min: 1
+  #         max: 65535
+  #   privileged: false
+  #   allowPrivilegeEscalation: false
+  #   runAsUser:
+  #     rule: MustRunAsNonRoot
 
 image:
   # Emissary Ingress docker repo
@@ -162,31 +162,36 @@ dnsPolicy: ClusterFirst
 # If true, uses the host network, useful for on-premise setups
 hostNetwork: false
 
+createDefaultListeners: true
+
 service:
   type: LoadBalancer
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
-    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:us-east-2:{AWS_ACCOUNT_ID}:certificate/{AWS_CERTIFICATE_ID}"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
+    getambassador.io/config: "apiVersion: getambassador.io/v3alpha1\nkind: Module\nname: emissary-ingress\nambassador_id: emissary\nconfig:\n  diagnostics:\n    enabled: false\n  use_proxy_proto: true\n  regex_max_size: 300 \n"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy: ELBSecurityPolicy-TLS-1-2-2017-01
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:us-east-2:412088913008:certificate/3075843e-83bd-4f5b-b5ad-59e211da62b7"
   # Note that target http ports need to match your ambassador configurations service_port
   # https://www.getambassador.io/reference/modules/#the-ambassador-module
   ports:
-  - name: http
-    port: 80
-    targetPort: 8080
-      # protocol: TCP
-      # nodePort: 30080
-      # hostPort: 80
+  # - name: http
+  #   port: 80
+  #   targetPort: 8080
+  # protocol: TCP
+  # nodePort: 30080
+  # hostPort: 80
   - name: https
     port: 443
-    targetPort: 8443
-      # protocol: TCP
-      # nodePort: 30443
-      # hostPort: 443
+    targetPort: 8080
+    # protocol: TCP
+    # nodePort: 30443
+    # hostPort: 443
     # TCPMapping_Port
-      # port: 2222
-      # targetPort: 2222
-      # protocol: TCP
-      # nodePort: 30222
+    # port: 2222
+    # targetPort: 2222
+    # protocol: TCP
+    # nodePort: 30222
   # For test purposes, do not use.
   portsRaw: ''
 
@@ -196,7 +201,7 @@ service:
 
   sessionAffinityConfig:
 
-  externalIPs: []    
+  externalIPs: []
 
   # Manually set the name of the generated Service
   nameOverride:
@@ -328,7 +333,7 @@ ambassadorConfig: ''
 # See documentation: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#servicemonitor
 metrics:
   serviceMonitor:
-    enabled: false
+    enabled: true
     # interval: 30s
     # scrapeTimeout: 30s
     # selector: {}
@@ -437,18 +442,17 @@ createNamespace: false
 # Whether Emissary should be created with default listeners:
 # - HTTP on port 8080
 # - HTTPS on port 8443
-createDefaultListeners: false
 
 # Configure a 'lifecycle' section for the main pod
 lifecycle: # +doc-gen:break
-  # Example block that works well if the main container is running behind a load balancer that
-  # is slow to deregister pods - e.g. with IP-type registration in an AWS TargetGroup:
-  # lifecycle:
-  #   preStop:
-  #     exec:
-  #       command:
-  #         - "sh"
-  #         - "-c"
-  #         - >
-  #           curl -XPOST localhost:8001/healthcheck/fail;
-  #           /bin/sleep 45;
+# Example block that works well if the main container is running behind a load balancer that
+# is slow to deregister pods - e.g. with IP-type registration in an AWS TargetGroup:
+# lifecycle:
+#   preStop:
+#     exec:
+#       command:
+#         - "sh"
+#         - "-c"
+#         - >
+#           curl -XPOST localhost:8001/healthcheck/fail;
+#           /bin/sleep 45;
