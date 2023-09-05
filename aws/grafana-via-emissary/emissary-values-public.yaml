@@ -171,7 +171,7 @@ service:
     service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
     getambassador.io/config: "apiVersion: getambassador.io/v3alpha1\nkind: Module\nname: emissary-ingress\nambassador_id: emissary\nconfig:\n  diagnostics:\n    enabled: false\n  use_proxy_proto: true\n  regex_max_size: 300 \n"
     service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy: ELBSecurityPolicy-TLS-1-2-2017-01
-    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:us-east-2:412088913008:certificate/3075843e-83bd-4f5b-b5ad-59e211da62b7"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:{AWS_REGION}:{AWS_ACCOUNT_ID}:certificate/{AWS_ACM_ARN}"
   # Note that target http ports need to match your ambassador configurations service_port
   # https://www.getambassador.io/reference/modules/#the-ambassador-module
   ports:
