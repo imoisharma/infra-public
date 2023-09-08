@@ -18,6 +18,6 @@ Rewrites and Redirects: Ingress controllers can perform URL rewrites and redirec
 - **Scalability:** Ingress controllers are designed to be highly available and scalable. They can handle a large volume of incoming traffic and adapt to changes in the cluster's service topology.
 
 **References** 
-[1]: https://github.com/Sharmio/infra-public/tree/main/aws/grafana-via-emissary
-[2]: https://www.getambassador.io/products/api-gateway
-[3]: https://www.youtube.com/channel/UCpSDw2Ih5oOKZBydoq_ptqQ
+[1]: https://github.com/Sharmio/infra-public/tree/main/aws/grafana-via-emissary </br>
+[2]: https://www.getambassador.io/products/api-gateway</br>
+[3]: https://www.youtube.com/channel/UCpSDw2Ih5oOKZBydoq_ptqQ</br>
