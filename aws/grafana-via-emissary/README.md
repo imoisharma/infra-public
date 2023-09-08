@@ -17,7 +17,7 @@ Rewrites and Redirects: Ingress controllers can perform URL rewrites and redirec
 - **Authentication and Authorization:** Some Ingress controllers support authentication and authorization mechanisms, helping you secure your services by validating user identities and controlling access.</br>
 - **Scalability:** Ingress controllers are designed to be highly available and scalable. They can handle a large volume of incoming traffic and adapt to changes in the cluster's service topology.
 
-**References** 
+**References** </br>
 [1]: https://github.com/Sharmio/infra-public/tree/main/aws/grafana-via-emissary </br>
 [2]: https://www.getambassador.io/products/api-gateway</br>
 [3]: https://www.youtube.com/channel/UCpSDw2Ih5oOKZBydoq_ptqQ</br>
