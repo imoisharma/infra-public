@@ -64,11 +64,24 @@ Emissary-ingress `3.X` includes a Deployment in the `emissary-system` namespace 
 
 If the `emissary-apiext` Deployment pods all stop running, you will not be able to use `getambassador.io/v3alpha1` CRDs until restarting the `emissary-apiext` Deployment.
 
-
 ```YAML
 helm upgrade --install emissary-ingress --namespace emissary datawire/emissary-ingress -f  ./aws/grafana-via-emissary/emissary-values-public.yaml && \
 kubectl -n emissary wait --for condition=available --timeout=90s deploy -lapp.kubernetes.io/instance=emissary-ingress
 ```
+I've already prepared a customized [values.yaml](https://github.com/Sharmio/infra-public/blob/main/aws/grafana-via-emissary/emissary-values-public.yaml) file for Emissary Ingress. This configuration will be utilized to create a Network Load Balancer (NLB) for Emissary Ingress, including the setup of AWS Certificate Manager (ACM) on it. Additionally, we're configuring various variables, such as the environment variable `AMBASSADOR_ID` with the value `emissary`. You can view the complete list of custom configurations in the provided values.yaml file.
+
+Now, let's verify the status of these deployments within our EKS cluster to ensure they are running smoothly.
+
+```YAML
+kubectl get pods --all-namespaces | grep -E 'emissary|emissary-system'
+```
+
+
+Figure 1: Illustrates the pod information running under emissary and emissary-systemEmissary-ingress should now be successfully installed and operational. 
+
+
+However, before proceeding with deploying services and testing routing to them, it's essential to configure a few more resources. To begin, let's confirm whether the Network Load Balancer (NLB) Listener attached to the TargetGroup is passing health checks or not.
+
 
 **References** </br>
 [1]: https://github.com/Sharmio/infra-public/tree/main/aws/grafana-via-emissary </br>
