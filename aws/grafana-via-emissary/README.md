@@ -134,16 +134,18 @@ kubectl port-forward -n <namespace> <grafana-pod-name> <local-port>:3000
 <i>Figure 4: Displays the grafana pod information installed by kube-promtheus-stack</i>
 
 4. Access the Grafana UI Locally: Open a web browser and navigate to the following URL:`http://localhost:<local-port>`
-Replace `<local-port>` with the port you specified in the kubectl port-forward command. In the example above, you'd access Grafana at http://localhost:9090.
-5. Login and Test: You may be prompted to log in when you access the Grafana UI for the first time. By default, Grafana may use the username admin and password prom-operator. Please refer to your Grafana configuration for the actual credentials if you've customized them.
-
+Replace `<local-port>` with the port you specified in the kubectl port-forward command. In the example above, you'd access Grafana at `http://localhost:9090`.
 ![Image5](./images/image5.png)
-<i>Figure 5: Displays the Grafana Password information installed by kube-promtheus-stack via the K8sLens tool.</i>
+<i>Figure5: Display the Grafana running on local port 9090</i>
+
+5. Login and Test: You may be prompted to log in when you access the Grafana UI for the first time. By default, Grafana may use the username admin and password prom-operator. Please refer to your Grafana configuration for the actual credentials if you've customized them.
+![Image6](./images/image6.png)
+<i>Figure 6: Displays the Grafana Password information installed by kube-promtheus-stack via the [K8sLens tool](k8slens.dev).</i>
 
 Once logged in, you can perform initial setup tasks, create dashboards, add data sources, and start testing Grafana.
 
-![Image6](./images/image6.png)
-<i>Figure 6: Displays the Grafana Dashboard on localhost:9090 using Kubectl port-forward service/pod.</i>
+![Image7](./images/image7.png)
+<i>Figure 7: Displays the Grafana Dashboard on localhost:9090 using Kubectl port-forward service/pod.</i>
 
 ## Creating Host and Mapping via Emissary Ingress
 For testing purposes, using kubectl port-forward is suitable for quickly testing the functionality. However, in a production environment, it's essential to set up a fully qualified domain name (FQDN) for your Grafana service. This is where the Host and mapping resources provided by Emissary-ingress come into play, enabling you to make your service accessible to everyone through a well-defined domain name and routing configuration. This approach ensures a more robust and reliable service set-up in a production context.
