@@ -37,6 +37,35 @@ Emissary Ingress is gaining recognition as a strong contender among Ingress cont
 
 As organizations increasingly adopt Kubernetes and microservices architectures, Ingress controllers like Emissary Ingress play a crucial role in ensuring that applications are accessible, secure, and scalable. Emissary Ingress, with its Kubernetes-native design and integration with Envoy, is emerging as a powerful choice for managing ingress traffic and shaping the future of Kubernetes-native API gateways.
 
+## What is Emissary Ingress? 
+Emissary-Ingress stands out as the leading Kubernetes-native, open-source API Gateway, known for its scalability, flexibility, and user-friendly approach, making it a preferred choice for managing extensive Kubernetes deployments globally. Emissary-Ingress is a CNCF incubating project and leverages the widely adopted Envoy Proxy at its core.
+
+**Before proceeding, ensure you meet the following prerequisites:**
+- An active and functioning Amazon EKS cluster.
+- The kubectl command-line tool was installed.
+- A basic understanding of Kubernetes concepts.
+- Make sure to clone the following GitHub repository to your local system: [Infra Public](https://github.com/Sharmio/infra-public).
+
+# Installing Emissary Ingress on Amazon EKS
+Let's kick off the installation process for Emissary-ingress in our cluster:
+
+```YAML
+# Add the Repo:
+helm repo add datawire https://app.getambassador.io
+helm repo update
+
+# Create Namespace and Install:
+kubectl create namespace emissary && \
+kubectl apply -f https://app.getambassador.io/yaml/emissary/3.7.2/emissary-crds.yaml
+kubectl wait --timeout=90s --for=condition=available deployment emissary-apiext -n emissary-system
+```
+
+Emissary-ingress 3.X includes a Deployment in the emissary-system namespace called emissary-apiext. This is the APIserver extension that supports converting Emissary-ingress CRDs between getambassador.io/v2and getambassador.io/v3alpha1. This Deployment needs to be running at all times.
+
+If the emissary-apiext Deployment pods all stop running, you will not be able to use getambassador.io/v3alpha1 CRDs until restarting the emissary-apiext Deployment.
+
+
+
 **References** </br>
 [1]: https://github.com/Sharmio/infra-public/tree/main/aws/grafana-via-emissary </br>
 [2]: https://www.getambassador.io/products/api-gateway</br>
