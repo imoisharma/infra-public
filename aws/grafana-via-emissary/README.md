@@ -150,6 +150,64 @@ Once logged in, you can perform initial setup tasks, create dashboards, add data
 ## Creating Host and Mapping via Emissary Ingress
 For testing purposes, using kubectl port-forward is suitable for quickly testing the functionality. However, in a production environment, it's essential to set up a fully qualified domain name (FQDN) for your Grafana service. This is where the Host and mapping resources provided by Emissary-ingress come into play, enabling you to make your service accessible to everyone through a well-defined domain name and routing configuration. This approach ensures a more robust and reliable service set-up in a production context.
 
+To create a host and mapping for Grafana with the provided configurations, you can use the following YAML manifests:
+
+**Create a Host for Grafana:**
+
+```YAML
+apiVersion: getambassador.io/v2
+kind: Host
+metadata:
+  name: grafana-host
+  namespace: monitoring
+spec:
+  acmeProvider:
+    authority: none
+  ambassador_id:
+    - emissary
+  hostname: monitoring.sharmio.com
+  requestPolicy:
+    insecure:
+      action: Route
+```
+
+**Create a Mapping for Grafana:**
+
+```YAML
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: mapping-with-hostname-match
+  namespace: monitoring
+spec:
+  ambassador_id:
+    - emissary_poc
+  host: monitoring.sharmio.com
+  prefix: /
+  service: grafana-stack
+```
+
+## Mapping Route53 Records to NLB Address
+To map a Route53 record with the Network Load Balancer (NLB) address for your Grafana service, you can follow these steps:
+
+- **Obtain the NLB Address:** First, you need to obtain the public DNS name or IP address of the NLB that is associated with your Emissary Ingress. You can find this information in the AWS Management Console or by using the AWS CLI.
+- **Access Route53**: Go to the AWS Route53 service in the AWS Management Console.
+- **Create a Record Set**: In your Route53 hosted zone, create a new record set for your desired subdomain (e.g., "monitoring.sharmio.com"). Choose the record type based on whether you want to use an A record (for IP addresses) or a CNAME record (for DNS aliases).
+- **Enter NLB Address:** Enter the NLB's DNS name or IP address in the appropriate field, depending on the record type you choose. If you are using a CNAME record, the "Value" should be the NLB DNS name. If you are using an A record, choose "Alias to Network Load Balancer" and select the NLB from the list.
+
+![Image8](./images/image8.png)
+
+  - Save the Record Set: Save the changes to create the record set. DNS propagation may take some time, so be patient.
+  - Test the Setup: After DNS propagation is complete, you should be able to access your Grafana service using the configured subdomain (e.g., "monitoring.sharmio.com"). Ensure that it routes traffic through the Emissary Ingress to your Grafana service.
+
+By mapping the Route53 record to the NLB address, you make your Grafana service accessible via the desired fully qualified domain name (FQDN).
+
+![Image9](./images/image9.png)
+
+## Conclusion
+In this article, we've explored the process of setting up Emissary Ingress on an Amazon EKS cluster and leveraging it to expose Grafana and Prometheus services securely and efficiently. Emissary Ingress, with its scalability and flexibility, has emerged as a strong contender in the world of Kubernetes-native API Gateways. We've also seen how to configure resources such as Hosts and Mappings for routing traffic effectively and how to integrate a fully qualified domain name (FQDN) with Route53 for production-grade service access.
+By following the steps outlined here, you can enhance your Kubernetes-based applications' availability and security while ensuring seamless traffic management.
+
 **References** </br>
 [1]: https://github.com/Sharmio/infra-public/tree/main/aws/grafana-via-emissary </br>
 [2]: https://www.getambassador.io/products/api-gateway</br>
