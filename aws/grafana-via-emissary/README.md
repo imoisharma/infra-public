@@ -2,10 +2,24 @@
 
 In the realm of Kubernetes and cloud-native applications, the secure and efficient management and exposure of services are of utmost importance. In this context, Ingress controllers play a pivotal role in directing external traffic to services within a cluster. While Nginx and Kong have long been established options, there's a new rising contender known as Emissary Ingress from Ambassador.io.
 
+**Table of Contents**
+
+1. [Introduction](#introduction)
+   - [The Importance of Ingress Controllers](#the-importance-of-ingress-controllers)
+   - [Emissary Ingress as a Rising Contender](#emissary-ingress-as-a-rising-contender)
+2. [What is Emissary Ingress](#what-is-emissary-ingress)
+   - [Installing Emissary Ingress on Amazon EKS](#installing-emissary-ingress-on-amazon-eks)
+4. [Installing and Configuring Grafana with Emissary Ingress](#installing-and-configuring-grafana-with-emissary-ingress)
+5. [Port-Forward For Grafana](#port-forward-for-grafana)
+6. [Creating Host and Mapping via Emissary Ingress](#creating-host-and-mapping-via-emissary-ingress)
+7. [Mapping Route53 Records to NLB Address](#mapping-route53-records-to-nlb-address)
+8. [Conclusion](#conclusion)
+
+ 
 ## Introduction
 This article will guide you through the steps of installing Emissary Ingress on an Amazon EKS cluster and demonstrate its usage in exposing Grafana and Prometheus services. Let's dive into detail about the importance of Ingress controllers and why Emissary Ingress is gaining prominence in the Kubernetes ecosystem:
 
-### The Importance of Ingress Controllers:
+### The Importance of Ingress Controllers
 In Kubernetes, an Ingress controller is a critical component for managing external access to services running within the cluster. It serves as an intelligent traffic management solution, allowing you to route external requests to the appropriate services, often based on factors such as domain names, paths, and other request attributes.
 
 **Here are some key reasons why Ingress controllers are essential in Kubernetes:** </br>
@@ -22,7 +36,7 @@ In Kubernetes, an Ingress controller is a critical component for managing extern
 
 - **Scalability:** Ingress controllers are designed to be highly available and scalable. They can handle a large volume of incoming traffic and adapt to changes in the cluster's service topology.
 
-### Emissary Ingress as a Rising Contender:
+### Emissary Ingress as a Rising Contender
 Emissary Ingress is gaining recognition as a strong contender among Ingress controllers for Kubernetes, and here's why:
 
 **Kubernetes-Native Design:** Emissary Ingress is purpose-built for Kubernetes, making it a natural fit for managing services in a Kubernetes environment. It leverages Kubernetes custom resources to configure routing rules and policies. <br>
@@ -37,7 +51,7 @@ Emissary Ingress is gaining recognition as a strong contender among Ingress cont
 
 As organizations increasingly adopt Kubernetes and microservices architectures, Ingress controllers like Emissary Ingress play a crucial role in ensuring that applications are accessible, secure, and scalable. Emissary Ingress, with its Kubernetes-native design and integration with Envoy, is emerging as a powerful choice for managing ingress traffic and shaping the future of Kubernetes-native API gateways.
 
-## What is Emissary Ingress? 
+## What is Emissary Ingress
 Emissary-Ingress stands out as the leading Kubernetes-native, open-source API Gateway, known for its scalability, flexibility, and user-friendly approach, making it a preferred choice for managing extensive Kubernetes deployments globally. Emissary-Ingress is a CNCF incubating project and leverages the widely adopted Envoy Proxy at its core.
 
 **Before proceeding, ensure you meet the following prerequisites:**
@@ -46,7 +60,7 @@ Emissary-Ingress stands out as the leading Kubernetes-native, open-source API Ga
 - A basic understanding of Kubernetes concepts.
 - Make sure to clone the following GitHub repository to your local system: [Infra Public](https://github.com/Sharmio/infra-public).
 
-### Installing Emissary Ingress on Amazon EKS
+### Installing Emissary Ingress on Amazon EKS
 Let's kick off the installation process for Emissary-ingress in our cluster:
 
 ```YAML
@@ -87,7 +101,7 @@ However, before proceeding with deploying services and testing routing to them, 
 
 If your instance health status is not showing as healthy, it's crucial to inspect whether the Emissary Ingress Listener resources have been created correctly for both HTTP and HTTPS. Listeners are essential for specifying which ports the Emissary Ingress pods should listen on to handle incoming requests. I recommend referring to the official documentation from the Ambassador team at https://www.getambassador.io/docs/emissary/latest/topics/running/debugging for further guidance and troubleshooting steps. This documentation can provide valuable insights into debugging and resolving any issues you may encounter with Emissary Ingress.
 
-## Installing & Configuring Grafana with Emissary Ingress
+## Installing and Configuring Grafana with Emissary Ingress
 Next, we will proceed with the installation of Grafana on your Amazon EKS cluster. To do this, we'll deploy the kube-prometheus stack, which comprises Kubernetes manifests, Grafana dashboards, and Prometheus rules. These components are combined with documentation and scripts to simplify the process of setting up comprehensive Kubernetes cluster monitoring using Prometheus, all facilitated by the Prometheus Operator.
 
 ```YAML
@@ -117,7 +131,7 @@ helm install grafana-stack prometheus-community/kube-prometheus-stack -n monitor
 ![Image3](./images/image3.png)
 <i>Figure 3: Displays the pod information installed by kube-promtheus-stack</i>
 
-## Port-Forward Grafana Pod for Testin
+## Port-Forward for Grafana
 Port-forwarding to a Grafana pod is a helpful way to access the Grafana UI running within your Kubernetes cluster and verify that it's working correctly. 
 
 **Here's a step-by-step guide on how to port forward to a Grafana pod for testing:**
@@ -147,7 +161,7 @@ Once logged in, you can perform initial setup tasks, create dashboards, add data
 ![Image7](./images/image7.png)
 <i>Figure 7: Displays the Grafana Dashboard on localhost:9090 using Kubectl port-forward service/pod.</i>
 
-## Creating Host and Mapping via Emissary Ingress
+## Creating Host and Mapping via Emissary Ingress
 For testing purposes, using kubectl port-forward is suitable for quickly testing the functionality. However, in a production environment, it's essential to set up a fully qualified domain name (FQDN) for your Grafana service. This is where the Host and mapping resources provided by Emissary-ingress come into play, enabling you to make your service accessible to everyone through a well-defined domain name and routing configuration. This approach ensures a more robust and reliable service set-up in a production context.
 
 To create a host and mapping for Grafana with the provided configurations, you can use the following YAML manifests:
@@ -187,7 +201,7 @@ spec:
   service: grafana-stack
 ```
 
-## Mapping Route53 Records to NLB Address
+## Mapping Route53 Records to NLB Address
 To map a Route53 record with the Network Load Balancer (NLB) address for your Grafana service, you can follow these steps:
 
 - **Obtain the NLB Address:** First, you need to obtain the public DNS name or IP address of the NLB that is associated with your Emissary Ingress. You can find this information in the AWS Management Console or by using the AWS CLI.
