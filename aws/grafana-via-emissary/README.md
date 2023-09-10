@@ -60,11 +60,15 @@ kubectl apply -f https://app.getambassador.io/yaml/emissary/3.7.2/emissary-crds.
 kubectl wait --timeout=90s --for=condition=available deployment emissary-apiext -n emissary-system
 ```
 
-Emissary-ingress 3.X includes a Deployment in the emissary-system namespace called emissary-apiext. This is the APIserver extension that supports converting Emissary-ingress CRDs between getambassador.io/v2and getambassador.io/v3alpha1. This Deployment needs to be running at all times.
+Emissary-ingress `3.X` includes a Deployment in the `emissary-system` namespace called `emissary-apiext`. This is the APIserver extension that supports converting Emissary-ingress CRDs between `getambassador.io/v2` and `getambassador.io/v3alpha1`. This Deployment needs to be running at all times.
 
-If the emissary-apiext Deployment pods all stop running, you will not be able to use getambassador.io/v3alpha1 CRDs until restarting the emissary-apiext Deployment.
+If the `emissary-apiext` Deployment pods all stop running, you will not be able to use `getambassador.io/v3alpha1` CRDs until restarting the `emissary-apiext` Deployment.
 
 
+```YAML
+helm upgrade --install emissary-ingress --namespace emissary datawire/emissary-ingress -f  ./aws/grafana-via-emissary/emissary-values-public.yaml && \
+kubectl -n emissary wait --for condition=available --timeout=90s deploy -lapp.kubernetes.io/instance=emissary-ingress
+```
 
 **References** </br>
 [1]: https://github.com/Sharmio/infra-public/tree/main/aws/grafana-via-emissary </br>
