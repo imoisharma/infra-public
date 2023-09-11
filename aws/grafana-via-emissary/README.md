@@ -169,36 +169,71 @@ To create a host and mapping for Grafana with the provided configurations, you c
 **Create a Host for Grafana:**
 
 ```YAML
-apiVersion: getambassador.io/v2
+kubectl apply -f ./aws/grafana-via-emissary/grafana.yaml
+```
+
+```YAML
+apiVersion: getambassador.io/v3alpha1
 kind: Host
 metadata:
   name: grafana-host
   namespace: monitoring
+  labels:
+    app.kubernetes.io/component: emissary-ingress
+    app.kubernetes.io/managed-by: sharmio
+    app.kubernetes.io/name: grafana-host
+  annotations:
+    a8r.io/bugs: https://github.com/Sharmio/infra-public/issues
+    a8r.io/dependencies: emissary-ingress
+    a8r.io/description: This custom Host resource defines how Emissary-ingress will be visible to the outside world.
+    a8r.io/documentation: https://github.com/Sharmio/infra-public/tree/main/aws/grafana-via-emissary
+    a8r.io/owner: Sharmio
+    a8r.io/repository: https://github.com/Sharmio/infra-public/
+    meta.helm.sh/release-name: grafana-host
+    meta.helm.sh/release-namespace: monitoring
 spec:
   acmeProvider:
     authority: none
-  ambassador_id:
-    - emissary
   hostname: monitoring.sharmio.com
   requestPolicy:
     insecure:
       action: Route
+  ambassador_id:
+  - 'emissary'
 ```
 
 **Create a Mapping for Grafana:**
 
 ```YAML
-apiVersion: getambassador.io/v2
+kubectl apply -f ./aws/grafana-via-emissary/mapping.yaml
+```
+
+```YAML
+apiVersion: getambassador.io/v3alpha1
 kind: Mapping
 metadata:
-  name: mapping-with-hostname-match
+  name: grafana-mapping
   namespace: monitoring
+  labels:
+    host: grafana-host # This matches the Host's mappingSelector.
+    app.kubernetes.io/component: emissary-ingress
+    app.kubernetes.io/managed-by: sharmio
+    app.kubernetes.io/name: grafana-mapping
+  annotations:
+    a8r.io/bugs: https://github.com/Sharmio/infra-public/issues
+    a8r.io/dependencies: emissary-ingress
+    a8r.io/description: This mapping will defines how incoming HTTP requests should be routed to the appropriate backend services i.e. grafana service within a Kubernetes cluster.
+    a8r.io/documentation: https://github.com/Sharmio/infra-public/tree/main/aws/grafana-via-emissary
+    a8r.io/owner: Sharmio
+    a8r.io/repository: https://github.com/Sharmio/infra-public/
+    meta.helm.sh/release-name: grafana-mapping
+    meta.helm.sh/release-namespace: monitoring
 spec:
-  ambassador_id:
-    - emissary_poc
-  host: monitoring.sharmio.com
   prefix: /
   service: grafana-stack
+  ambassador_id:
+  - 'emissary'
+  hostname: monitoring.sharmio.com
 ```
 
 ## Mapping Route53 Records to NLB Address
