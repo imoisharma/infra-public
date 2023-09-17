@@ -18,8 +18,17 @@ metadata:
     meta.helm.sh/release-name: prometheus-mapping
     meta.helm.sh/release-namespace: monitoring
 spec:
-  prefix: /
+  prefix: /prometheus(/|$)(.*)
   service: prometheus-operated
   ambassador_id:
   - 'emissary'
-  hostname: monitoring.sharmio.com/prometheus
+  hostname: monitoring.sharmio.com
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: prometheus-ext
+  namespace: monitoring
+spec:
+  externalUrl: https://monitoring.sharmio.com/prometheus
