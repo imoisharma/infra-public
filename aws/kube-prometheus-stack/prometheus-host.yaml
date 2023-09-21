@@ -1,0 +1,27 @@
+apiVersion: getambassador.io/v3alpha1
+kind: Host
+metadata:
+  name: prometheus-host
+  namespace: monitoring
+  # labels:
+  #   app.kubernetes.io/component: emissary-ingress
+  #   app.kubernetes.io/managed-by: sharmio
+  #   app.kubernetes.io/name: prometheus-host
+  # annotations:
+  #   a8r.io/bugs: https://github.com/Sharmio/infra-public/issues
+  #   a8r.io/dependencies: emissary-ingress
+  #   a8r.io/description: This custom Host resource defines how Emissary-ingress will be visible to the outside world.
+  #   a8r.io/documentation: https://github.com/Sharmio/infra-public/tree/main/aws/grafana-via-emissary
+  #   a8r.io/owner: Sharmio
+  #   a8r.io/repository: https://github.com/Sharmio/infra-public/
+  #   meta.helm.sh/release-name: prometheus-host
+  #   meta.helm.sh/release-namespace: monitoring
+spec:
+  acmeProvider:
+    authority: none
+  hostname: prometheus.sharmio.com
+  requestPolicy:
+    insecure:
+      action: Route
+  ambassador_id:
+  - 'emissary'
