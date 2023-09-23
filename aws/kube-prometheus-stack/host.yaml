@@ -19,7 +19,7 @@ metadata:
 spec:
   acmeProvider:
     authority: none
-  hostname: monitoring.sharmio.com
+  hostname: your-domain
   requestPolicy:
     insecure:
       action: Route

@@ -22,4 +22,4 @@ spec:
   service: grafana-stack
   ambassador_id:
   - 'emissary'
-  hostname: monitoring.sharmio.com
+  hostname: your-domain
