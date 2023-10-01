@@ -1,15 +1,18 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: ambassador-monitor
   labels:
-    app: emissary-ingress
+    # This release key is mapped to the Grafana-Prometheus Helm release value
+    release: grafana-stack
+  name: ambassador-monitor
+  namespace: monitoring
 spec:
+  endpoints:
+  # Define the endpoints for monitoring
+  - port: ambassador-admin # Port for monitoring Ambassador
   namespaceSelector:
     matchNames:
-    - emissary-ingress
+    - emissary # Select the 'emissary' namespace for monitoring
   selector:
     matchLabels:
-      service: ambassador-admin
-  endpoints:
-  - port: ambassador-admin
+      service: ambassador-admin # Match services with the label 'service: ambassador-admin'
