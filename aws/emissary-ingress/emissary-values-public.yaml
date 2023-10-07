@@ -375,6 +375,7 @@ prometheusExporter: # +doc-gen:break
   tag: v0.8.1
   pullPolicy: IfNotPresent
   resources: {}
+
   # If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   #   limits:

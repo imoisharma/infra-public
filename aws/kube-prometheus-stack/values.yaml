@@ -1,4 +1,0 @@
-prometheus:
-  prometheusSpec:
-    externalUrl: https://monitoring.sharmio.com/prometheus
-    routePrefix: /prometheus
