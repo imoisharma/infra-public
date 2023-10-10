@@ -18,8 +18,8 @@ metadata:
     meta.helm.sh/release-name: prometheus-mapping
     meta.helm.sh/release-namespace: monitoring
 spec:
-  prefix: /
-  service: prometheus-operated
+  prefix: /prometheus/
+  service: prometheus-operated:9090
   ambassador_id:
   - 'emissary'
   hostname: <your-hostname>
